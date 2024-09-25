@@ -2,37 +2,40 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-function Forms() {
+function FormsObject() {
+  const [data, setData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
-  const [username, setUsername] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const { username, email, password } = data; 
 
-  const handleUsername = (e) => {
-    setUsername(e.target.value)
-    console.log(username)
-  }
+  const handleData = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    
+    e.preventDefault();
+
+   
+
     alert(`
       username: ${username}
       email: ${email}
       password: ${password}     
-      `)
+      `);
 
-      setEmail("")
-      setPassword("")
-      setUsername("")
-  }
-
-console.log(email)
-console.log(password)
+      setData({
+        username: "",
+        email: "",
+        password: ""
+      });
+  };
 
   return (
     <Form className="container" onSubmit={handleSubmit}>
-      <h1 className="text-center mt-5">Forms</h1>
+      <h1 className="text-center mt-5">Forms Object</h1>
       <Form.Group className="mb-3">
         <Form.Label>{username && <span>Hello {username}</span>}</Form.Label>
         <Form.Control
@@ -41,7 +44,7 @@ console.log(password)
           id="username"
           name="username"
           value={username}
-          onChange={handleUsername}
+          onChange={handleData}
           required
         />
       </Form.Group>
@@ -54,7 +57,7 @@ console.log(password)
           id="email"
           name="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleData}
           required
         />
       </Form.Group>
@@ -67,7 +70,7 @@ console.log(password)
           id="password"
           name="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handleData}
           required
         />
       </Form.Group>
@@ -79,4 +82,4 @@ console.log(password)
   );
 }
 
-export default Forms;
+export default FormsObject;
